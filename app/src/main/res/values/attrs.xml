@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <declare-styleable name="FlightDetail">
+        
+        <attr name="airline" format="string"></attr>
+        <attr name="tickets" format="string"></attr>
+        <attr name="flightnumber" format="string"></attr>
+        <attr name="prices" format="string"></attr>
+        <attr name="cabintype" format="string"></attr>
+        <attr name="airaraft" format="string"></attr>
+        <attr name="time" format="string"></attr>
+        
+    </declare-styleable>
+    
+</resources>
