@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,6 +21,11 @@ import java.util.Date;
 
 public class SearchResultActivity extends AppCompatActivity {
 
+    private LinearLayout layout=null;
+    private TextView texttotal=null;
+    private int num=0;
+    private String cabintype;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +34,14 @@ public class SearchResultActivity extends AppCompatActivity {
         Intent intent=getIntent();
         String reqstr = intent.getStringExtra("reqstr");
         System.out.println(reqstr);
+        cabintype=intent.getStringExtra("cabintype");
 
+        //layout = new LinearLayout(this);
+        //layout.setOrientation(LinearLayout.VERTICAL);
+        layout = (LinearLayout) findViewById(R.id.linearlayoutdetail) ;
+        //setContentView(layout);
+
+        texttotal=(TextView)findViewById(R.id.texttotal);
         getdata(reqstr);
 
 //        createcontrols();
@@ -72,38 +88,56 @@ public class SearchResultActivity extends AppCompatActivity {
                     * "To":"LAX"}]
                     * */
                     if(rescode==200){
+
                         try{
                             Looper.prepare();
 
                             JSONArray array = new JSONArray(content);
-                            for(int i=0; i<array.length(); i++){
+                            num= array.length();
+//                            TextView texttotal=(TextView)findViewById(R.id.texttotal);
+//                            texttotal.setText(num);
+
+                            for(int i=0; i<num; i++){
                                 JSONObject obj = array.getJSONObject(i);
+                                View view = View.inflate(getApplicationContext(), R.layout.flight_detail, null);
+
                                 int id = obj.getInt("Id");
-                                /* total num tickets leave
-                                 cabintype   */
+
+                                String airline = obj.getString("AirlineName");
+                                TextView textairline=(TextView)view.findViewById(R.id.textairline);
+                                textairline.setText(airline);
+
+                                String avltkt=obj.getString("AvailableTickets");
+                                TextView textavltkt=(TextView)view.findViewById(R.id.texttickets);
+                                textavltkt.setText(avltkt);
+
                                 String fltnum = obj.getString("FlightNumber");
-                                int price = obj.getInt("Price");
+                                TextView textfltnum=(TextView)view.findViewById(R.id.textfltNum);
+                                textfltnum.setText(fltnum);
+
+                                String price = obj.getString("Price");
+                                TextView textprice=(TextView)view.findViewById(R.id.textprice);
+                                textprice.setText(price);
+
                                 String aircraft = obj.getString("Aircraft");
+                                TextView textaircraft=(TextView)view.findViewById(R.id.textcraft);
+                                textaircraft.setText(aircraft);
+
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                 Date depdate = sdf.parse(obj.getString("DepartureTime"));
-                                SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
-                                String time = sdf2.format(depdate);
-                                System.out.println(time);
-                                System.out.println("flight detail :"
-                                        + "\nfltnum:" + fltnum
-                                        + "\nprices:" + price
-                                        + "\naircraft:" + aircraft
-                                        + "\ntime:" + time
-                                );
-                                /*
-                                I/System.out: flight detail :
-                                I/System.out: fltnum:CA101
-                                I/System.out: prices:1200
-                                I/System.out: aircraft:Boeing 737-800
-                                I/System.out: time:08:00
-                                * */
+                                SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+                                SimpleDateFormat sdf3 = new SimpleDateFormat("HH:mm");
+                                String date =sdf2.format(depdate);
+                                String time = sdf3.format(depdate);
+                                TextView textdate=(TextView)view.findViewById(R.id.textdate);
+                                textdate.setText(date);
+                                TextView texttime=(TextView)view.findViewById(R.id.texttime);
+                                texttime.setText(time);
 
+                                TextView textcabin=(TextView)view.findViewById(R.id.textcabin);
+                                textcabin.setText(cabintype);
 
+                                layout.addView(view);
                             }
 
                             Looper.loop();
@@ -120,6 +154,4 @@ public class SearchResultActivity extends AppCompatActivity {
         }.start();
     }
 
-    private void createcontrols() {
-    }
 }

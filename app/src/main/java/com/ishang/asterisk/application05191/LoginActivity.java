@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
@@ -32,12 +33,16 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void run(){
                         try{
-                            TextView textemail = (TextView)findViewById(R.id.textemail);
-                            TextView textpswd = (TextView)findViewById(R.id.textpswd);
-                            String email = textemail.getText().toString();
-                            String pswd = textemail.getText().toString();
+//                            TextView textemail = (TextView)findViewById(R.id.textemail);
+//                            TextView textpswd = (TextView)findViewById(R.id.textpswd);
+                            EditText editTextemail = (EditText)findViewById(R.id.editemail);
+                            EditText editTextpswd=(EditText)findViewById(R.id.editpswd);
+                            String email = editTextemail.getText().toString();
+                            String pswd = editTextpswd.getText().toString();
+                            if(null==email || email.isEmpty()) email="tt@gmail.com";
+                            if(null==pswd || pswd.isEmpty()) pswd="123456";
 
-                            String path = "http://10.0.2.2:5000/api/login?Email=tt@gmail.com&Password=123456";
+                            String path = "http://10.0.2.2:5000/api/login?Email="+email+"&Password="+pswd;
                             URL url= new URL(path);
                             HttpURLConnection conn= (HttpURLConnection) url.openConnection();
                             conn.setConnectTimeout(5000);

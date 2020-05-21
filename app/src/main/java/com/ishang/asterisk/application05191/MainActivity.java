@@ -3,14 +3,25 @@ package com.ishang.asterisk.application05191;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.ishang.asterisk.application05191.global.GlobalVariable;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getsponsorinfo();
 
         videoView = (VideoView) findViewById(R.id.videoView);
         mediaController = new MediaController(this);
@@ -69,6 +82,55 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getsponsorinfo() {
+        final TextView textsp= (TextView) findViewById(R.id.textsponsor);
+        textsp.setText("test sponsor");
+        new Thread(){
+            @Override
+            public void run(){
+                try{
+                    String path= "http://10.0.2.2:5000/api/sponsor/list";
+                    URL url = new URL(path);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.setConnectTimeout(5000);
+                    int rescode = conn.getResponseCode();
+                    InputStream is = conn.getInputStream();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+                    int len = -1;
+                    byte[] buffer = new byte[1024];
+                    while ((len=is.read(buffer))!=-1){
+                        baos.write(buffer,0,len);
+                    }
+                    String content = new String(baos.toByteArray());
+
+                    Looper.prepare();
+                    String sponsors="Sponsors: ";
+                    if(rescode==200){
+                        JSONArray array = new JSONArray(content);
+                        for (int i =0; i<array.length();i++){
+                            JSONObject obj = array.getJSONObject(i);
+                            sponsors+=obj.getString("Name");
+                            sponsors+="           ";
+                        }
+                        textsp.setText(sponsors);
+                        textsp.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                        textsp.setSingleLine(true);
+                        textsp.setSelected(true);
+                        textsp.setFocusable(true);
+                        textsp.setFocusableInTouchMode(true);
+                    }
+                    Looper.loop();
+
+                }catch (Exception e){
+                    System.out.println("报错了1");
+                    System.out.println(e.toString());
+                }
+            }
+        }.start();
     }
 
     public void getnewpos() {

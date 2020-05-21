@@ -60,7 +60,7 @@ public class SearchFlightActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(date==null || date.isEmpty()) {
                     Date currentTime = new Date();
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMdd");
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     date = formatter.format(currentTime);
                 }
 
@@ -68,6 +68,7 @@ public class SearchFlightActivity extends AppCompatActivity {
                 Intent page = new Intent(SearchFlightActivity.this, SearchResultActivity.class);
                 //page.putExtra("newpos",videopos);
                 page.putExtra("reqstr",reqstr);
+                page.putExtra("cabintype",cabintype);
                 startActivity(page);
                 //Toast.makeText(SearchFlightActivity.this, "dep:"+depIATA+"; arr:"+arrIATA+"; date:"+date, Toast.LENGTH_SHORT).show();
 
@@ -98,6 +99,7 @@ public class SearchFlightActivity extends AppCompatActivity {
         //fromlist.add("测试数据2");
 
         spinlist = new ArrayList<SpinItem>();
+        spinlist.add(new SpinItem("","please select one"));
 
         new Thread(){
             public void run(){
@@ -110,7 +112,7 @@ public class SearchFlightActivity extends AppCompatActivity {
                     conn.setConnectTimeout(5000);
                     conn.setRequestMethod("GET");
                     int responseCode=conn.getResponseCode();
-                    InputStream is= conn.getInputStream(); // TODO 这是啥
+                    InputStream is= conn.getInputStream(); // 这是啥
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
                     int len=-1;
@@ -150,10 +152,7 @@ public class SearchFlightActivity extends AppCompatActivity {
                             System.out.println(e.toString());
                         }
 
-                        adapter = new ArrayAdapter<SpinItem>(getApplicationContext(), android.R.layout.simple_spinner_item, spinlist);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spin_from.setAdapter(adapter);
-                        spin_to.setAdapter(adapter);
+
                     }
                     Looper.loop();
                 }catch (Exception e) {
@@ -169,9 +168,13 @@ public class SearchFlightActivity extends AppCompatActivity {
         * 这个问题好像是异步加载数据造成的。
         * 当调用spinner.setAdapter()时候，那个adapter中还没有数据，自定义adapter也是一样问题，
         * 其实哪怕adapter中仅有一条记录，后期异步添加数据都没有问题。但一条数据都没有便会出现该问题，然而点击spinner任然会显示异步加载的数据。
-        * 最好的办法是，是异步数据加载完成后在调用spinner.setAdapter()就不会存在该问题
-        * 解决方法二：事先添加一条数据进去 此处未采用
+        * 最好的办法是，是异步数据加载完成后在调用spinner.setAdapter()就不会存在该问题 update: 报错了 采用方法二
+        * 解决方法二：事先添加一条数据进去 ~~此处未采用~~
         * */
+        adapter = new ArrayAdapter<SpinItem>(getApplicationContext(), android.R.layout.simple_spinner_item, spinlist);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin_from.setAdapter(adapter);
+        spin_to.setAdapter(adapter);
         spin_from.setSelection(0,true);
         spin_to.setSelection(0,true);
 
