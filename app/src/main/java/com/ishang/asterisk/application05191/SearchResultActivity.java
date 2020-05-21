@@ -89,10 +89,8 @@ public class SearchResultActivity extends AppCompatActivity {
 
 
                             for(int i=0; i<num; i++){
-                                JSONObject obj = array.getJSONObject(i);
-                                View view = View.inflate(getApplicationContext(), R.layout.flight_detail, null);
-
-                                int id = obj.getInt("Id");
+                                final JSONObject obj = array.getJSONObject(i);
+                                final View view = View.inflate(getApplicationContext(), R.layout.flight_detail, null);
 
                                 String airline = obj.getString("AirlineName");
                                 TextView textairline=(TextView)view.findViewById(R.id.textairline);
@@ -102,7 +100,7 @@ public class SearchResultActivity extends AppCompatActivity {
                                 TextView textavltkt=(TextView)view.findViewById(R.id.texttickets);
                                 textavltkt.setText(avltkt+" avaliable tickets");
 
-                                String fltnum = obj.getString("FlightNumber");
+                                final String fltnum = obj.getString("FlightNumber");
                                 TextView textfltnum=(TextView)view.findViewById(R.id.textfltNum);
                                 textfltnum.setText(fltnum);
 
@@ -110,12 +108,13 @@ public class SearchResultActivity extends AppCompatActivity {
                                 TextView textprice=(TextView)view.findViewById(R.id.textprice);
                                 textprice.setText("$"+price);
 
-                                String aircraft = obj.getString("Aircraft");
+                                final String aircraft = obj.getString("Aircraft");
                                 TextView textaircraft=(TextView)view.findViewById(R.id.textcraft);
                                 textaircraft.setText(aircraft);
 
+                                final String depstr=obj.getString("DepartureTime");
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                                Date depdate = sdf.parse(obj.getString("DepartureTime"));
+                                Date depdate = sdf.parse(depstr);
                                 SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
                                 SimpleDateFormat sdf3 = new SimpleDateFormat("HH:mm");
                                 String date =sdf2.format(depdate);
@@ -129,6 +128,29 @@ public class SearchResultActivity extends AppCompatActivity {
                                 textcabin.setText(cabintype);
 
                                 layout.addView(view);
+
+                                final int id = obj.getInt("Id");
+                                if(cabintype.equals("First")){
+                                    // TODO: 5/22/2020  不能在线程上操控控件的解决方法
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            view.setOnClickListener(new View.OnClickListener() {
+
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Intent seatpage = new Intent(SearchResultActivity.this, SelectSeatActivity.class);
+                                                    seatpage.putExtra("fltid", id);
+                                                    seatpage.putExtra("deptime",depstr);
+                                                    seatpage.putExtra("fltnum",fltnum);
+                                                    seatpage.putExtra("aircraft",aircraft);
+                                                    startActivity(seatpage);
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                }
                             }
 
                             Looper.loop();

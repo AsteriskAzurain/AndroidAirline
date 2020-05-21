@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 playingPos=videoView.getCurrentPosition();
-                System.out.println("current position:"+playingPos);
+                GlobalVariable.setPlayingpos(playingPos);
+                System.out.println("current position:"+GlobalVariable.getPlayingpos());
                 Intent page = new Intent(MainActivity.this, MileageActivity.class);
                 startActivity(page);
             }
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         //Intent page =getIntent();
         //int newpos= page.getIntExtra("newpos",0);
         int newpos = GlobalVariable.getPlayingpos();
-        System.out.println(newpos);
+        System.out.println("new pos:"+newpos);
         videoView.seekTo(newpos);
     }
 }
