@@ -73,12 +73,13 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="date"
+        android:inputType="none"
         android:ems="10"
         android:id="@+id/editTextDate"
         android:layout_below="@+id/textView12"
-        android:layout_alignStart="@+id/textView12" />
-
+        android:layout_alignStart="@+id/textView12"
+        android:focusableInTouchMode="false" />
+<!--android:inputType="date"-->
     <Button
         android:text="Search"
         android:layout_height="wrap_content"

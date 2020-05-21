@@ -1,19 +1,22 @@
 package com.ishang.asterisk.application05191;
 
-import android.content.Context;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import com.ishang.asterisk.application05191.global.SpinItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,9 +25,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class SearchFlightActivity extends AppCompatActivity {
@@ -59,9 +61,10 @@ public class SearchFlightActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(date==null || date.isEmpty()) {
-                    Date currentTime = new Date();
+                   /* Date currentTime = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    date = formatter.format(currentTime);
+                    date = formatter.format(currentTime);*/
+                    date="2018-06-15";
                 }
 
                 String reqstr="/api/flight/list?From="+depIATA+"&To="+arrIATA+"&CabinType="+cabintype+"&Date="+date+" &isAsc=1";
@@ -229,6 +232,25 @@ public class SearchFlightActivity extends AppCompatActivity {
         });
 
         EditText textdate = (EditText)findViewById(R.id.editTextDate);
+
+        textdate.setInputType(InputType.TYPE_NULL);
+        textdate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+
+            @Override
+            public void onFocusChange(View view, boolean hasfocus) {
+                if(hasfocus){
+                    showDatePickerDialog();
+                }
+            }
+        });
+        textdate.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
+
         textdate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -264,4 +286,21 @@ public class SearchFlightActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void showDatePickerDialog() {
+//        Time t = new Time("GMT+8");
+        Calendar cal = Calendar.getInstance();
+        int year=cal.get(Calendar.YEAR);
+        int month=cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        new DatePickerDialog(SearchFlightActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                EditText textdate = (EditText)findViewById(R.id.editTextDate);
+                textdate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+            }
+//        }, t.year, t.month, t.monthDay).show();
+        }, year, month, day).show();
+    }
+
 }

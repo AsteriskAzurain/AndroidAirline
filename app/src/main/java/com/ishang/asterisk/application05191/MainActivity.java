@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.microedition.khronos.opengles.GL;
+
 public class MainActivity extends AppCompatActivity {
 
     private VideoView videoView;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getuserid();
 
         getsponsorinfo();
 
@@ -81,7 +85,58 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(page);
             }
         });
+        Button btnlogout = (Button)findViewById(R.id.btnout);
+        btnlogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GlobalVariable.setUseremail(null);
+                GlobalVariable.setUserid(0);
+                Intent intent1 = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent1);
+            }
+        });
 
+    }
+
+    private void getuserid() {
+        final String email = GlobalVariable.getUseremail();
+        if(null==email || email.isEmpty()) GlobalVariable.setUserid(0);
+        else{
+            new Thread(){
+                @Override
+                public void run() {
+                    try{
+                        String path ="http://10.0.2.2:5000/api/user/"+email;
+                        URL url =new URL(path);
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                        conn.setConnectTimeout(5000);
+                        conn.setRequestMethod("GET");
+                        int rescode = conn.getResponseCode();
+                        InputStream is = conn.getInputStream();
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+                        int len = -1;
+                        byte[] buffer = new byte[1024];
+                        while ((len=is.read(buffer))!=-1){
+                            baos.write(buffer,0,len);
+                        }
+                        String content = new String(baos.toByteArray());
+
+                        JSONObject userinfo = new JSONArray(content).getJSONObject(0);
+                        GlobalVariable.setUserid(userinfo.getInt("ID"));
+                        String username=(userinfo.getString("FirstName")+" "+userinfo.getString("LastName"));
+                        if(userinfo.getString("Gender").equals("M")) username ="Mr. "+username;
+                        else username = "Mrs. "+username;
+                        GlobalVariable.setUsername(username);
+                        System.out.println("name: "+GlobalVariable.getUsername()+"\nID: "+GlobalVariable.getUserid());
+
+                    }catch (Exception e){
+                        System.out.println("报错了1");
+                        System.out.println(e.toString());
+                    }
+                }
+            }.start();
+        }
     }
 
     private void getsponsorinfo() {

@@ -67,22 +67,8 @@
         android:layout_height="220dp"
         android:layout_below="@+id/textView21"
         android:layout_alignStart="@+id/textView21"
-        android:layout_marginTop="16dp">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:text="1500 Points"
-                android:id="@+id/textdetailpoints"/>
-
-            <TextView
-                android:text="1500 Points"
-                android:id="@+id/textdetailtime"
-                android:layout_marginStart="100dp"/>
-
-        </TableRow>
+        android:layout_marginTop="16dp"
+        android:id="@+id/tablelayout">
 
         <TableRow
             android:layout_width="match_parent"

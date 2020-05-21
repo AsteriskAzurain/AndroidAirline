@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,7 +23,6 @@ import java.util.Date;
 public class SearchResultActivity extends AppCompatActivity {
 
     private LinearLayout layout=null;
-    private TextView texttotal=null;
     private int num=0;
     private String cabintype;
 
@@ -31,7 +31,7 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
 
-        Intent intent=getIntent();
+        final Intent intent=getIntent();
         String reqstr = intent.getStringExtra("reqstr");
         System.out.println(reqstr);
         cabintype=intent.getStringExtra("cabintype");
@@ -41,10 +41,16 @@ public class SearchResultActivity extends AppCompatActivity {
         layout = (LinearLayout) findViewById(R.id.linearlayoutdetail) ;
         //setContentView(layout);
 
-        texttotal=(TextView)findViewById(R.id.texttotal);
         getdata(reqstr);
 
-//        createcontrols();
+        Button btnback = (Button)findViewById(R.id.btnback_rst);
+        btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(SearchResultActivity.this,SearchFlightActivity.class);
+                startActivity(intent1);
+            }
+        });
     }
 
     private void getdata(final String reqstr) {
@@ -70,23 +76,7 @@ public class SearchResultActivity extends AppCompatActivity {
                     is.close();
                     String content= new String(baos.toByteArray());
                     System.out.println(content);
-                    /*
-                    * I/System.out: [
-                    * {"Id":"1","AirlineName":"Air China","FlightNumber":"CA101","Price":"1200","DepartureTime":"2018-06-15 08:00","ArriveTime":"2018-06-15 12:00","Aircraft":"Boeing 737-800","AvailableTickets":"120","From":"PEK","To":"PVG"},
-                    * {"Id":"2","AirlineName":"Air China","FlightNumber":"CA120","Price":"1800","DepartureTime":"2018-06-15 05:00","ArriveTime":"2018-06-15 13:00","Aircraft":"Boeing 737-800","AvailableTickets":"120","From":"PEK","To":"LAX"},
-                    * {"Id":"3","AirlineName":"American Airlines","FlightNumber":"AA180","Price":"1800","DepartureTime":"2018-06-15 16:00","ArriveTime":"2018-06-15 23:55","Aircraft":"Airbus 319","AvailableTickets":"90","From":"LAX","To":"PEK"},
-                    * {"Id":"4","AirlineName":"Air China","FlightNumber":"CA136","Price":"2000","DepartureTime":"2018-06-15 08:00","ArriveTime":"2018-06-15 18:00","Aircraft":"Airbus 319","AvailableTickets":"90","From":"PEK","To":"LAX"},
-                    * {"Id":"5",
-                    * "AirlineName":"Air China",
-                    * "FlightNumber":"CA186",
-                    * "Price":"1900",
-                    * "DepartureTime":"2018-06-15 10:00",
-                    * "ArriveTime":"2018-06-15 22:10",
-                    * "Aircraft":"Airbus 319",
-                    * "AvailableTickets":"90",
-                    * "From":"PEK",
-                    * "To":"LAX"}]
-                    * */
+
                     if(rescode==200){
 
                         try{
@@ -94,8 +84,9 @@ public class SearchResultActivity extends AppCompatActivity {
 
                             JSONArray array = new JSONArray(content);
                             num= array.length();
-//                            TextView texttotal=(TextView)findViewById(R.id.texttotal);
-//                            texttotal.setText(num);
+                            TextView texttotal=(TextView)findViewById(R.id.texttotal);
+                            texttotal.setText("Total "+num+" flights");
+
 
                             for(int i=0; i<num; i++){
                                 JSONObject obj = array.getJSONObject(i);
@@ -109,7 +100,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
                                 String avltkt=obj.getString("AvailableTickets");
                                 TextView textavltkt=(TextView)view.findViewById(R.id.texttickets);
-                                textavltkt.setText(avltkt);
+                                textavltkt.setText(avltkt+" avaliable tickets");
 
                                 String fltnum = obj.getString("FlightNumber");
                                 TextView textfltnum=(TextView)view.findViewById(R.id.textfltNum);
@@ -117,7 +108,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
                                 String price = obj.getString("Price");
                                 TextView textprice=(TextView)view.findViewById(R.id.textprice);
-                                textprice.setText(price);
+                                textprice.setText("$"+price);
 
                                 String aircraft = obj.getString("Aircraft");
                                 TextView textaircraft=(TextView)view.findViewById(R.id.textcraft);

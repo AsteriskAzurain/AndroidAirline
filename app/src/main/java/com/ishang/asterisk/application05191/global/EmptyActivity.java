@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.ishang.asterisk.application05191.R;
-import com.ishang.asterisk.application05191.mybtnListener;
 
 public class EmptyActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.ishang.asterisk.application05191;
+package com.ishang.asterisk.application05191.global;
 
 /**
  * Created by Asterisk on 5/20/2020.

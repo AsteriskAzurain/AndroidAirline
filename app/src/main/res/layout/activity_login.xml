@@ -11,7 +11,7 @@
     tools:context="com.ishang.asterisk.application05191.LoginActivity">
 
     <TextView
-        android:text="TextView"
+        android:text="Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -65,11 +65,11 @@
         android:layout_alignStart="@+id/editemail" />
 
     <Button
-        android:text="登录"
-        android:layout_width="wrap_content"
+        android:text="Login"
         android:layout_height="wrap_content"
         android:id="@+id/btnlogin"
         android:layout_below="@+id/editpswd"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="85dp" />
+        android:layout_marginTop="85dp"
+        android:layout_width="150dp" />
 </RelativeLayout>

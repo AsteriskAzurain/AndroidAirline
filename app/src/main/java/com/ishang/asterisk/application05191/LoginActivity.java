@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.ishang.asterisk.application05191.global.GlobalVariable;
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -61,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                             Looper.prepare();
                             if(rescode==200){
                                 try{
+                                    GlobalVariable.setUseremail(email);
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                 }catch (Exception e){
