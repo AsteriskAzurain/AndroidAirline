@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 
 public class SelectSeatActivity extends AppCompatActivity {
 
@@ -35,6 +36,8 @@ public class SelectSeatActivity extends AppCompatActivity {
         String depstr=intent.getStringExtra("deptime");
         String fltnum = intent.getStringExtra("fltnum");
         String aircraft= intent.getStringExtra("aircraft");
+
+        removeimg(aircraft);
 
         TextView textdep = (TextView)findViewById(R.id.textdeptime1);
         textdep.setText(depstr);
@@ -62,6 +65,21 @@ public class SelectSeatActivity extends AppCompatActivity {
             e.printStackTrace();
         }*/
 
+    }
+
+    private void removeimg(String aircraft) {
+        if(aircraft.equals("Boeing 737-800")){
+            //imageView.setImageDrawable(null)
+            int[] rms={R.id.s3A,R.id.s3C,R.id.s3J,R.id.s3L};
+            for(int sid:rms){
+                ImageView rmimg = (ImageView)findViewById(sid);
+                rmimg.setImageDrawable(null);
+            }
+            TextView tv= (TextView)findViewById(R.id.r3c0);
+            tv.setText("");
+            tv=(TextView)findViewById(R.id.r3c6);
+            tv.setText("");
+        }
     }
 
     private void getseatinfo(final int fltid) {
@@ -121,20 +139,24 @@ public class SelectSeatActivity extends AppCompatActivity {
         int userid= obj.getInt("UserId");
         String col = obj.getString("ColumnName");
         int row= obj.getInt("RowNumber");
-        String objidstr="s"+row+col;
-        int objid=getResources().getIdentifier(objidstr,"id",getPackageName());
-        final ImageView objimg = (ImageView)findViewById(objid);
-        objimg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.chair_occupied));
-        if(userid==nowuser) {
-            objimg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.chair_yourchosen));
-            objimg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    objimg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.chair_available));
-                }
-            });
-        }else{
-            objimg.setClickable(false);
+        String[] cols={"A","C","J","L"};
+        Boolean hascol= Arrays.asList(cols).contains(col);
+        if( row<=3 && hascol ){
+            String objidstr="s"+row+col;
+            int objid=getResources().getIdentifier(objidstr,"id",getPackageName());
+            final ImageView objimg = (ImageView)findViewById(objid);
+            objimg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.chair_occupied));
+            if(userid==nowuser) {
+                objimg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.chair_yourchosen));
+                objimg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        objimg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.chair_available));
+                    }
+                });
+            }else{
+                objimg.setClickable(false);
+            }
         }
     }
 
@@ -155,4 +177,7 @@ public class SelectSeatActivity extends AppCompatActivity {
     }
 
 
+    public void onClick(View view){
+        System.out.println(view.toString());
+    }
 }

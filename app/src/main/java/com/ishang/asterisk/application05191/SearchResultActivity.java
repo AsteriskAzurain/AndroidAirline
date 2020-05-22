@@ -1,6 +1,7 @@
 package com.ishang.asterisk.application05191;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -141,6 +143,7 @@ public class SearchResultActivity extends AppCompatActivity {
                                                 public void onClick(View view) {
                                                     Intent seatpage = new Intent(SearchResultActivity.this, SelectSeatActivity.class);
                                                     seatpage.putExtra("fltid", id);
+                                                    System.out.println(""+id);
                                                     seatpage.putExtra("deptime",depstr);
                                                     seatpage.putExtra("fltnum",fltnum);
                                                     seatpage.putExtra("aircraft",aircraft);
@@ -149,7 +152,6 @@ public class SearchResultActivity extends AppCompatActivity {
                                             });
                                         }
                                     });
-
                                 }
                             }
 
@@ -166,5 +168,6 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         }.start();
     }
+
 
 }

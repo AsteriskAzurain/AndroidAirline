@@ -24,129 +24,211 @@
             android:orientation="vertical" />
     </ScrollView>
 
-<!--    <RelativeLayout
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/scrollview"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="71dp">
+        android:layout_marginTop="55dp"
+        android:id="@+id/gridseat_test"
+        android:rowCount="4"
+        android:columnCount="7"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
         <TextView
-            android:text="TextAirCompany"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textcompany"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:lineSpacingExtra="10sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:text=""
+            android:layout_row="1"
+            android:layout_column="3"
+            android:layout_width="30dp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:text="1"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:text="2"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:text="3"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:text="1"
+            android:layout_row="1"
+            android:layout_column="6"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:text="2"
+            android:layout_row="2"
+            android:layout_column="6"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:text="3"
+            android:layout_row="3"
+            android:layout_column="6"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:text="A"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
-            android:text="TextTickets"
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/texttickets"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-
+            android:text="C"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"/>
         <TextView
-            android:text="Flight Number:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
-            android:id="@+id/textView14"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:layout_below="@+id/textcompany"
-            android:layout_alignParentStart="true" />
-
+            android:text="J"
+            android:layout_row="0"
+            android:layout_column="4"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"/>
         <TextView
-            android:text="Prices:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView16"
-            android:layout_below="@+id/textView14"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="15dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            android:text="L"
+            android:layout_row="0"
+            android:layout_column="5"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"/>
 
-        <TextView
-            android:text="Cabin Type:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView17"
-            android:layout_below="@+id/textView16"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="15dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+    </GridLayout>
 
-        <TextView
-            android:text="Aircraft:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:id="@+id/textView18"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:layout_below="@+id/textView17"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:text="Time:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:id="@+id/textView19"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:layout_below="@+id/textView18"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:text="textfltNum"
+    <!--    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:id="@+id/textfltNum"
-            android:layout_alignBaseline="@+id/textView14"
-            android:layout_alignBottom="@+id/textView14"
-            android:layout_toEndOf="@+id/textcompany"
-            android:layout_marginStart="5dp" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="71dp">
 
-        <TextView
-            android:text="textprice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textprice"
-            android:layout_alignBaseline="@+id/textView16"
-            android:layout_alignBottom="@+id/textView16"
-            android:layout_toEndOf="@+id/textView18"
-            android:layout_marginStart="12dp" />
+            <TextView
+                android:text="TextAirCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textcompany"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:lineSpacingExtra="10sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
 
-        <TextView
-            android:text="textcabin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textcabin"
-            android:layout_alignBaseline="@+id/textView17"
-            android:layout_alignBottom="@+id/textView17"
-            android:layout_toEndOf="@+id/textView14" />
+            <TextView
+                android:text="TextTickets"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/texttickets"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-        <TextView
-            android:text="textcraft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textcraft"
-            android:layout_alignBaseline="@+id/textView18"
-            android:layout_alignBottom="@+id/textView18"
-            android:layout_toEndOf="@+id/textView17" />
+            <TextView
+                android:text="Flight Number:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:id="@+id/textView14"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:layout_below="@+id/textcompany"
+                android:layout_alignParentStart="true" />
 
-        <TextView
-            android:text="texttime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView19"
-            android:layout_toEndOf="@+id/textView18"
-            android:id="@+id/texttime" />
+            <TextView
+                android:text="Prices:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView16"
+                android:layout_below="@+id/textView14"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="15dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-    </RelativeLayout>-->
+            <TextView
+                android:text="Cabin Type:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView17"
+                android:layout_below="@+id/textView16"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="15dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:text="Aircraft:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:id="@+id/textView18"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:layout_below="@+id/textView17"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:text="Time:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:id="@+id/textView19"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:layout_below="@+id/textView18"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:text="textfltNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:id="@+id/textfltNum"
+                android:layout_alignBaseline="@+id/textView14"
+                android:layout_alignBottom="@+id/textView14"
+                android:layout_toEndOf="@+id/textcompany"
+                android:layout_marginStart="5dp" />
+
+            <TextView
+                android:text="textprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textprice"
+                android:layout_alignBaseline="@+id/textView16"
+                android:layout_alignBottom="@+id/textView16"
+                android:layout_toEndOf="@+id/textView18"
+                android:layout_marginStart="12dp" />
+
+            <TextView
+                android:text="textcabin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textcabin"
+                android:layout_alignBaseline="@+id/textView17"
+                android:layout_alignBottom="@+id/textView17"
+                android:layout_toEndOf="@+id/textView14" />
+
+            <TextView
+                android:text="textcraft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textcraft"
+                android:layout_alignBaseline="@+id/textView18"
+                android:layout_alignBottom="@+id/textView18"
+                android:layout_toEndOf="@+id/textView17" />
+
+            <TextView
+                android:text="texttime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView19"
+                android:layout_toEndOf="@+id/textView18"
+                android:id="@+id/texttime" />
+
+        </RelativeLayout>-->
 </RelativeLayout>

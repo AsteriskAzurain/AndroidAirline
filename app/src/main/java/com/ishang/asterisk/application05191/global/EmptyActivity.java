@@ -3,6 +3,7 @@ package com.ishang.asterisk.application05191.global;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 import com.ishang.asterisk.application05191.R;
@@ -23,6 +24,11 @@ public class EmptyActivity extends AppCompatActivity {
             btn.setText("btn"+i);
             btn.setOnClickListener(new mybtnListener(btn));
             linearLayout.addView(btn);
+
+        }
+
+        GridLayout gridseat=(GridLayout)findViewById(R.id.gridseat_test);
+        for(int i=0;i<6;i++){
 
         }
     }
