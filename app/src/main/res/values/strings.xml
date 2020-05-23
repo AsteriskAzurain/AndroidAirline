@@ -15,7 +15,7 @@
         completions."
     </string>
 
-    <item type="id" name="tag_row"></item>
-    <item type="id" name="tag_col"></item>
-    <item type="id" name="tag_iv"></item>
+    <item name="tag_row" type="id"></item>
+    <item name="tag_col" type="id"></item>
+    <item name="tag_iv" type="id"></item>
 </resources>

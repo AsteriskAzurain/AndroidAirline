@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_search_flight"
     android:layout_width="match_parent"
@@ -117,4 +118,12 @@
         android:layout_marginTop="13dp"
         android:layout_below="@+id/spinto"
         android:layout_alignStart="@+id/spinto" />
+
+    <ImageView
+        android:layout_width="40dp"
+        app:srcCompat="@drawable/calendar"
+        android:id="@+id/imageView"
+        android:layout_height="40dp"
+        android:layout_above="@+id/btnsearch"
+        android:layout_toEndOf="@+id/textView" />
 </RelativeLayout>

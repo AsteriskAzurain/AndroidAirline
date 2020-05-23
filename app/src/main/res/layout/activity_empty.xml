@@ -24,17 +24,14 @@
             android:orientation="vertical" />
     </ScrollView>
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/scrollview"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="55dp"
+<!--    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/gridseat_test"
         android:rowCount="4"
         android:columnCount="7"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@+id/scrollview"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:text=""
@@ -104,7 +101,26 @@
             android:layout_margin="5dp"
             android:layout_gravity="center_horizontal"/>
 
-    </GridLayout>
+    </GridLayout>-->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_forviewpager"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+        </android.support.v4.view.ViewPager>
+
+    </LinearLayout>
 
     <!--    <RelativeLayout
             android:layout_width="match_parent"
