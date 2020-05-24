@@ -34,6 +34,8 @@ public class SelectSeatActivity extends AppCompatActivity {
     private List<ImageView> seatimgarray= new ArrayList<>();
     int fltid;  String aircraft;
     TextView t1, t2;
+    int avltkt, sumtkt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,8 @@ public class SelectSeatActivity extends AppCompatActivity {
         String depstr=intent.getStringExtra("deptime");
         String fltnum = intent.getStringExtra("fltnum");
         aircraft= intent.getStringExtra("aircraft");
+        String avltktstr = intent.getStringExtra("avltkt");
+        avltkt=Integer.parseInt(avltktstr);
 
         TextView textdep = (TextView)findViewById(R.id.textdeptime1);
         textdep.setText(depstr);
@@ -111,7 +115,9 @@ public class SelectSeatActivity extends AppCompatActivity {
                         baos.write(buffer,0,len);
                     }
                     String content = new String (baos.toByteArray());
-                    System.out.println(content);
+//                    System.out.println(content);
+                    if(content.isEmpty() || content=="" || content.equals(""))
+                        Toast.makeText(SelectSeatActivity.this,"Seat selection is not supported on this flight.",Toast.LENGTH_SHORT).show();
 
                     Looper.prepare();;
                     JSONArray array = new JSONArray(content);
@@ -187,9 +193,9 @@ public class SelectSeatActivity extends AppCompatActivity {
         imageView3J=(ImageView)findViewById(R.id.s3J); imageView3J.setTag(R.id.tag_row,"3"); imageView3J.setTag(R.id.tag_col,"J");
         imageView3L=(ImageView)findViewById(R.id.s3L); imageView3L.setTag(R.id.tag_row,"3"); imageView3L.setTag(R.id.tag_col,"L");
 
-        System.out.println("1. row: "+imageView1A.getTag(R.id.tag_row));
-        System.out.println("2. col: "+imageView1A.getTag(R.id.tag_col));
-        System.out.println("3. tag: "+imageView1A.getTag(R.id.tag_iv));
+        System.out.println("1. row: "+imageView2L.getTag(R.id.tag_row));
+        System.out.println("2. col: "+imageView2L.getTag(R.id.tag_col));
+        System.out.println("3. tag: "+imageView2L.getTag(R.id.tag_iv));
 
         if(aircraft.equals("Airbus 319")){
             seatimgarray.add(imageView3A);
@@ -256,8 +262,10 @@ public class SelectSeatActivity extends AppCompatActivity {
                                     }
                                     if(rescode==200){
                                         System.out.println(thisrow+thiscol+" post success");
+                                        Toast.makeText(SelectSeatActivity.this,"You have successfully reserved this seat: "+thisrow+thiscol,Toast.LENGTH_SHORT).show();
                                     }
                                 }catch (Exception e){
+                                    Toast.makeText(SelectSeatActivity.this,"booking failed.",Toast.LENGTH_SHORT).show();
                                     System.out.println("报错了1");
                                     System.out.println(e.toString());
                                 }
@@ -291,12 +299,16 @@ public class SelectSeatActivity extends AppCompatActivity {
         ImageView imgview =(ImageView)view;
         switch (tag){
             case "chosen":
+                sumtkt--;
                 imgview.setTag(R.id.tag_iv,"available");
                 imgview.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.chair_available));
                 break;
             case "available":
-                imgview.setTag(R.id.tag_iv,"chosen");
-                imgview.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.chair_yourchosen));
+                if(sumtkt<avltkt){
+                    sumtkt++;
+                    imgview.setTag(R.id.tag_iv,"chosen");
+                    imgview.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.chair_yourchosen));
+                }
                 break;
             default:break;
         }

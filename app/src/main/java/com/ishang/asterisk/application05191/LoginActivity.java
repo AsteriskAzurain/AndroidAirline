@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ishang.asterisk.application05191.global.GlobalVariable;
 
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                             if(null==email || email.isEmpty()) email="tt@gmail.com";
                             if(null==pswd || pswd.isEmpty()) pswd="123456";
 
+                            //真机测试报错：I/System.out: java.net.SocketTimeoutException: failed to connect to /10.0.2.2 (port 5000) from /172.31.181.53 (port 35250) after 5000ms
                             String path = "http://10.0.2.2:5000/api/login?Email="+email+"&Password="+pswd;
                             URL url= new URL(path);
                             HttpURLConnection conn= (HttpURLConnection) url.openConnection();
@@ -67,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                 }catch (Exception e){
+                                    Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
                                     System.out.println("报错了2");
                                     System.out.println(e.toString());
                                 }
@@ -74,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                             Looper.loop();
 
                         }catch (Exception e){
+                            Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
                             System.out.println("报错了1");
                             System.out.println(e.toString());
                         }

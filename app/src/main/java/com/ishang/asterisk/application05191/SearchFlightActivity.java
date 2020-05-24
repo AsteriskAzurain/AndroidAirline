@@ -14,9 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.ishang.asterisk.application05191.global.GlobalVariable;
 import com.ishang.asterisk.application05191.global.SpinItem;
 
 import org.json.JSONArray;
@@ -73,9 +75,11 @@ public class SearchFlightActivity extends AppCompatActivity {
                 //page.putExtra("newpos",videopos);
                 page.putExtra("reqstr",reqstr);
                 page.putExtra("cabintype",cabintype);
+                GlobalVariable.setReqstr(reqstr);
+                GlobalVariable.setCabintype(cabintype);
                 startActivity(page);
                 //Toast.makeText(SearchFlightActivity.this, "dep:"+depIATA+"; arr:"+arrIATA+"; date:"+date, Toast.LENGTH_SHORT).show();
-                Toast.makeText(SearchFlightActivity.this,"Currently, seat selection services are only offered to customers who purchase first-class tickets.",Toast.LENGTH_SHORT);
+                Toast.makeText(SearchFlightActivity.this,"Currently, seat selection services are only offered to customers who purchase first-class tickets.",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -246,6 +250,15 @@ public class SearchFlightActivity extends AppCompatActivity {
             }
         });
         textdate.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
+
+        ImageView imgcal = (ImageView) findViewById(R.id.imgcal);
+        imgcal.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {

@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ishang.asterisk.application05191.global.GlobalVariable;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -26,7 +28,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
     private LinearLayout layout=null;
     private int num=0;
-    private String cabintype;
+    private String reqstr,cabintype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,11 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
 
         final Intent intent=getIntent();
-        String reqstr = intent.getStringExtra("reqstr");
+        reqstr = intent.getStringExtra("reqstr");
+        reqstr = GlobalVariable.getReqstr();
         System.out.println(reqstr);
         cabintype=intent.getStringExtra("cabintype");
+        cabintype=GlobalVariable.getCabintype();
 
         //layout = new LinearLayout(this);
         //layout.setOrientation(LinearLayout.VERTICAL);
@@ -49,6 +53,8 @@ public class SearchResultActivity extends AppCompatActivity {
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                GlobalVariable.setReqstr(null);
+                GlobalVariable.setCabintype(null);
                 Intent intent1 = new Intent(SearchResultActivity.this,SearchFlightActivity.class);
                 startActivity(intent1);
             }
@@ -98,7 +104,7 @@ public class SearchResultActivity extends AppCompatActivity {
                                 TextView textairline=(TextView)view.findViewById(R.id.textairline);
                                 textairline.setText(airline);
 
-                                String avltkt=obj.getString("AvailableTickets");
+                                final String avltkt=obj.getString("AvailableTickets");
                                 TextView textavltkt=(TextView)view.findViewById(R.id.texttickets);
                                 textavltkt.setText(avltkt+" avaliable tickets");
 
@@ -147,6 +153,7 @@ public class SearchResultActivity extends AppCompatActivity {
                                                     seatpage.putExtra("deptime",depstr);
                                                     seatpage.putExtra("fltnum",fltnum);
                                                     seatpage.putExtra("aircraft",aircraft);
+                                                    seatpage.putExtra("avltkt",avltkt);
                                                     startActivity(seatpage);
                                                 }
                                             });

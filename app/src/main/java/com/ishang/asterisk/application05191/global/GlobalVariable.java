@@ -12,6 +12,25 @@ public class GlobalVariable {
     public static String useremail;
     public static String username;
 
+    public static String reqstr;
+    public static String cabintype;
+
+    public static String getReqstr() {
+        return reqstr;
+    }
+
+    public static void setReqstr(String reqstr) {
+        GlobalVariable.reqstr = reqstr;
+    }
+
+    public static String getCabintype() {
+        return cabintype;
+    }
+
+    public static void setCabintype(String cabintype) {
+        GlobalVariable.cabintype = cabintype;
+    }
+
     public static String getUsername() {
         return username;
     }
